@@ -1,0 +1,5 @@
+Allow: ${REPREPRO_CODENAME}
+Cleanup: on_deny on_error
+IncomingDir: incoming
+Name: default
+TempDir: tmp

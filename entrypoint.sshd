@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -e
+
+# Configure: sshd
+if [[ ! -e $EP_RUN ]] ; then
+	log "Configuring $(basename $0) for first run ..."
+
+	# SSH Host Keys ...
+	if [[ -f /etc/ssh/ssh_host_rsa_key ]] ; then
+		log "Skipping SSH host keys ..."
+	else
+		log "Generating SSH host keys ..."
+		dpkg-reconfigure --frontend=noninteractive openssh-server
+	fi
+fi
+

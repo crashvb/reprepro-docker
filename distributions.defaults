@@ -1,0 +1,5 @@
+REPREPRO_CODENAME=stable
+REPREPRO_COMPONENTS=main
+REPREPRO_DESCRIPTION=Generic APT Repository
+REPREPRO_GPG_KEY=default
+REPREPRO_URL=packages.generic.com

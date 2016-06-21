@@ -1,0 +1,26 @@
+server {
+	listen 80 default;
+
+	root /var/www/;
+	index index.html index.htm;
+
+	keepalive_timeout 60;
+
+	location / {
+#                auth_basic "Repository Secure Access";
+#                auth_basic_user_file /usr/share/gitweb/.htpasswd;
+		fancyindex on;
+		fancyindex_ignore db conf incoming logs tmp;
+
+		if ($request_method !~ ^(GET|HEAD)$ )
+		{
+			return 444;
+		}
+	}
+
+	location ~ /(db|conf|incoming|logs|tmp) {
+		deny all;
+		return 404;
+	}
+}
+

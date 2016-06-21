@@ -1,0 +1,15 @@
+Architectures: amd64 i386 source
+Codename: ${REPREPRO_CODENAME}
+Components: ${REPREPRO_COMPONENTS}
+Contents: . .gz .bz2
+DebIndices: Packages Release . .gz .bz2
+DebOverride: ../indices/override.${REPREPRO_CODENAME}.${REPREPRO_COMPONENTS}
+Description: ${REPREPRO_DESCRIPTION}
+DscIndices: Sources Release .gz .bz2
+DscOverride: ../indices/override.${REPREPRO_CODENAME}.${REPREPRO_COMPONENTS}.src
+Label: ${REPREPRO_URL}
+Log: ${REPREPRO_URL}.log
+Origin: ${REPREPRO_URL}
+SignWith: ${REPREPRO_GPG_KEY}
+UDebIndices: Packages . .gz .bz2
+UDebOverride: ../indices/override.${REPREPRO_CODENAME}.${REPREPRO_COMPONENTS}.debian-installer

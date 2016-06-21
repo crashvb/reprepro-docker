@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -e
+
+# Configure: sshc
+if [[ ! -e $EP_RUN ]] ; then
+	log "Configuring $(basename $0) for first run ..."
+
+	export ssh_dir=/home/contrib/.ssh
+	export authorized_keys=$ssh_dir/authorized_keys
+
+	# authorized_keys
+	if [[ -f $authorized_keys ]] ; then
+		log "Skipping: authorized_keys ..."
+	else
+		log "Generating: authorized_keys ..."
+		install --group=contrib --mode=0400 --owner=contrib /dev/null $authorized_keys
+		echo "$CONTRIB_AUTHORIZED_KEYS" > $authorized_keys
+	fi
+fi
+
