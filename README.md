@@ -33,8 +33,10 @@ The embedded entrypoint script is located at `/etc/entrypoint.d/30reprepro` and 
 
  | Variable | Default Value | Description |
  | ---------| ------------- | ----------- |
+ | REPREPRO_ARCHITECTURES | amd64 i386 source | The package architectures contained within. |
  | REPREPRO_CODENAME | stable | The operating system release name. |
  | REPREPRO_COMPONENTS | main | The packaging areas contained within. |
+ | REPREPRO_COMPRESSION | .bz2 .gz | Available compression formats. |
  | REPREPRO_DESCRIPTION | Generic APT Repository | The repository description. |
  | REPREPRO_GPG_KEY| default | The GPG key to use for signing. |
  | REPREPRO_URL | packages.generic.com | The repository URL. |
