@@ -11,7 +11,11 @@ if [[ ! -e $EP_RUN ]] ; then
 
 	# authorized_keys
 	if [[ -f $authorized_keys ]] ; then
-		log "Skipping: authorized_keys ..."
+		log "Augmenting: authorized_keys ..."
+		cp --preserve $authorized_keys $authorized_keys.tmp
+		echo "$CONTRIB_AUTHORIZED_KEYS" >> $authorized_keys.tmp
+		sort --unique $authorized_keys.tmp > $authorized_keys
+		rm --force $authorized_keys.tmp
 	else
 		log "Generating: authorized_keys ..."
 		install --group=contrib --mode=0400 --owner=contrib /dev/null $authorized_keys
