@@ -1,6 +1,7 @@
 #!/usr/bin/make -f
 
 include makefile.config
+-include makefile.config.local
 
 .PHONY: build debug default logs remove run shell start status stop
 

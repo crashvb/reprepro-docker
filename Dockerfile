@@ -1,5 +1,5 @@
-FROM crashvb/nginx:latest
-MAINTAINER Richard Davis <crashvb@gmail.com>
+FROM crashvb/nginx:ubuntu
+LABEL maintainer "Richard Davis <crashvb@gmail.com>"
 
 # Install packages, download files ...
 RUN docker-apt dpkg-sig make nginx-extras openssh-server reprepro xz-utils

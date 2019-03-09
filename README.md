@@ -4,6 +4,18 @@
 
 This docker image contains [reprepro](https://wiki.debian.org/SettingUpSignedAptRepositoryWithReprepro).
 
+## Signature Types
+
+The following Debian signature types are compiled from the `debsigs` [man page](https://manpages.debian.org/stretch/debsigs/debsigs.1p.en.html), and [supporting documentation](https://gitlab.com/debsigs/debsigs/blob/master/signing-policy.txt):
+
+ | Signature Type | Description |
+ | -------------- | ----------- |
+ | archive | An automatically-added signature renewed periodically to ensure that a package downloaded from an online archive is indeed the latest version distributed by the organization. |
+ | builder | dpkg-sig signature synonymous with 'maint'. |
+ | maint | The signature of the maintainer of the Debian package. This signature should be added by the maintainer before uploading the package. |
+ | origin | The official signature of the organization which distributes the package, usually the Debian Project or a GNU/Linux distribution derived from it. This signature may be added automatically. |
+ | qa | The signature of the Quality Assurance department. This signature can reduce the damage done if the key for an individual maintainer were to become compromised in some way. |
+
 ## Entrypoint Scripts
 
 ### sshd

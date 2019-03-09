@@ -6,36 +6,20 @@ set -e
 if [[ ! -e $EP_RUN ]] ; then
 	log "Configuring $(basename $0) for first run ..."
 
+	# Read distribution defaults early ...
+	while IFS='=' read -r key value
+	do
+	eval "export $key=\${$key:=$value}"
+	done < /usr/local/share/reprepro/distributions.defaults
+
+	generate_gpgkey reprepro "$REPREPRO_DESCRIPTION" reprepro@$REPREPRO_URL
+
 	export GNUPGHOME=$REPREPRO_HOME/.gnupg
-
-	if [[ ! "X$(ls $GNUPGHOME/*.gpg 2>/dev/null)" = "X" ]] ; then
-		log "Skipping GPG keys ..."
-	elif [[ -e /root/public.gpg ]] && [[ -e /root/private.gpg ]] ; then
-		log "Importing existing GPG keys ..."
-		gpg --import --verbose /root/public.gpg
-		gpg --allow-secret-key-import --import --verbose /root/private.gpg
-	else
-		log "Generating GPG keys ..."
-
-		# Read distribution defaults early ...
-		while IFS='=' read -r key value
-		do
-			eval "export $key=\${$key:=$value}"
-		done < /usr/local/share/reprepro/distributions.defaults
-
-		cat <<-EOF | gpg --batch --gen-key --verbose
-			Key-Type: 1
-			Key-Length: 4096
-			Name-Real: $REPREPRO_DESCRIPTION
-			Name-Email: reprepro@$REPREPRO_URL
-			Expire-Date: 0
-EOF
-	fi
 
 	log "Available GPG keys:"
 	gpg --list-keys
-	gpg --list-secret-keys
 
-	chown --recursive reprepro:reprepro $GNUPGHOME
+	log "Applying ownership and permissions ..."
+	find $GNUPGHOME \( \! -user reprepro -o \! -group reprepro \) -exec chown reprepro:reprepro {} \;
 fi
 

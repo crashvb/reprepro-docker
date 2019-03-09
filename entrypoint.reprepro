@@ -27,7 +27,7 @@ if [[ ! -e $EP_RUN ]] ; then
 	cat <<-EOF > $REPREPRO_BASE_DIR/repository.list
 		deb https://${REPREPRO_URL}/ ${REPREPRO_CODENAME} ${REPREPRO_COMPONENTS}
 		deb-src https://${REPREPRO_URL}/ ${REPREPRO_CODENAME} ${REPREPRO_COMPONENTS}
-EOF
+	EOF
 
 	log "Creating overrides ..."
 	for i in DebOverride DscOverride UDebOverride
@@ -36,8 +36,9 @@ EOF
 		$(cd $REPREPRO_BASE_DIR/conf && touch $(getConfig $i))
 	done
 
-	chown --recursive reprepro:reprepro $REPREPRO_BASE_DIR
-	chown --recursive reprepro:contrib $REPREPRO_BASE_DIR/incoming
+	log "Applying ownership and permissions ..."
+	find $REPREPRO_BASE_DIR \( \! -user reprepro -o \! -group reprepro \) -exec chown reprepro:reprepro {} \;
+	find $REPREPRO_BASE_DIR/incoming \( \! -user reprepro -o \! -group contrib \) -exec chown reprepro:contrib {} \;
 	chmod 0775 $REPREPRO_BASE_DIR/incoming
 fi
 
