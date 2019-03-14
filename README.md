@@ -86,11 +86,10 @@ The embedded entrypoint script is located at `/etc/entrypoint.d/40sshc` and perf
 │  │  └─ .ssh/
 │  │     └─ authorized_keys
 │  └─ reprepro/
-│     ├─ .gnupg/
 │     └─ makefile
-├─ root/
-│  ├─ private.gpg
-│  └─ public.gpg
+├─ run/
+│  └─ secrets/
+│     └─ reprepro.gpg
 └─ var/
    └─ www/
       ├─ conf/
@@ -113,7 +112,6 @@ The embedded entrypoint script is located at `/etc/entrypoint.d/40sshc` and perf
 
 * `/etc/ssh` - The SSH configuration directory.
 * `/home/contrib/.ssh` - The contrib user SSH authorized keys.
-* `/home/reprepro/.gnupg` - The reprepro GPG keys.
 * `/var/www` - The reprepro data directory.
 
 ## Development

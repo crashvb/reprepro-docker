@@ -27,7 +27,7 @@ processincoming-debug:
 	exec >/dev/tty 2>/dev/tty </dev/tty && GPGME_DEBUG reprepro -V processincoming default
 
 sign:
-	dpkg-sig --sign builder $(REPREPRO_BASE_DIR)/incoming/*.deb
+	dpkg-sig --sign archive $(REPREPRO_BASE_DIR)/incoming/*.deb
 
 purge:
 	rm --force --recursive $(REPREPRO_BASE_DIR)/{db,dists,pool} $(REPREPRO_BASE_DIR)/{logs,tmp}/*

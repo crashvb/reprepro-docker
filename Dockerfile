@@ -33,4 +33,4 @@ ADD entrypoint.sshd /etc/entrypoint.d/10sshd
 
 EXPOSE 22/tcp
 
-VOLUME /etc/ssh /home/contrib/.ssh ${REPREPRO_BASE_DIR} ${REPREPRO_HOME}/.gnupg
+VOLUME /etc/ssh /home/contrib/.ssh ${REPREPRO_BASE_DIR}
