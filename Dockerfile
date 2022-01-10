@@ -1,5 +1,17 @@
-FROM crashvb/nginx:ubuntu
-LABEL maintainer "Richard Davis <crashvb@gmail.com>"
+FROM crashvb/nginx:202201100300@sha256:37b8817a48b8208bc30d95e80a226a9863212ca5c1518ccb30c774de7136a08b
+ARG org_opencontainers_image_created=undefined
+ARG org_opencontainers_image_revision=undefined
+LABEL \
+	org.opencontainers.image.authors="Richard Davis <crashvb@gmail.com>" \
+	org.opencontainers.image.base.digest="sha256:37b8817a48b8208bc30d95e80a226a9863212ca5c1518ccb30c774de7136a08b" \
+	org.opencontainers.image.base.name="crashvb/nginx:202201100300" \
+	org.opencontainers.image.created="${org_opencontainers_image_created}" \
+	org.opencontainers.image.description="Image containing reprepro." \
+	org.opencontainers.image.licenses="Apache-2.0" \
+	org.opencontainers.image.source="https://github.com/crashvb/reprepro-docker" \
+	org.opencontainers.image.revision="${org_opencontainers_image_revision}" \
+	org.opencontainers.image.title="crashvb/reprepro" \
+	org.opencontainers.image.url="https://github.com/crashvb/reprepro-docker"
 
 # Install packages, download files ...
 RUN docker-apt dpkg-sig make nginx-extras openssh-server reprepro xz-utils
