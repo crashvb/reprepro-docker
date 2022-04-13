@@ -1,5 +1,10 @@
 # reprepro-docker
 
+[![version)](https://img.shields.io/docker/v/crashvb/reprepro/latest)](https://hub.docker.com/repository/docker/crashvb/reprepro)
+[![image size](https://img.shields.io/docker/image-size/crashvb/reprepro/latest)](https://hub.docker.com/repository/docker/crashvb/reprepro)
+[![linting](https://img.shields.io/badge/linting-hadolint-yellow)](https://github.com/hadolint/hadolint)
+[![license](https://img.shields.io/github/license/crashvb/reprepro-docker.svg)](https://github.com/crashvb/reprepro-docker/blob/master/LICENSE.md)
+
 ## Overview
 
 This docker image contains [reprepro](https://wiki.debian.org/SettingUpSignedAptRepositoryWithReprepro).
@@ -32,8 +37,8 @@ The embedded entrypoint script is located at `/etc/entrypoint.d/20gnupg` and per
 
  | Variable | Default Value | Description |
  | ---------| ------------- | ----------- |
- | REPREPRO_DESCRIPTION | | _See: repositry_ |
- | REPREPRO_URL | | _See: repositry_ |
+ | REPREPRO\_DESCRIPTION | | _See: reprepro_ |
+ | REPREPRO\_URL | | _See: reprepro_ |
 
 2. The ownership and permissions are verified on the following locations: `$GNUPGHOME`.
 
@@ -45,13 +50,13 @@ The embedded entrypoint script is located at `/etc/entrypoint.d/30reprepro` and 
 
  | Variable | Default Value | Description |
  | ---------| ------------- | ----------- |
- | REPREPRO_ARCHITECTURES | amd64 i386 source | The package architectures contained within. |
- | REPREPRO_CODENAME | stable | The operating system release name. |
- | REPREPRO_COMPONENTS | main | The packaging areas contained within. |
- | REPREPRO_COMPRESSION | .bz2 .gz | Available compression formats. |
- | REPREPRO_DESCRIPTION | Generic APT Repository | The repository description. |
- | REPREPRO_GPG_KEY| default | The GPG key to use for signing. |
- | REPREPRO_URL | packages.generic.com | The repository URL. |
+ | REPREPRO\_ARCHITECTURES | amd64 i386 source | The package architectures contained within. |
+ | REPREPRO\_CODENAME | stable | The operating system release name. |
+ | REPREPRO\_COMPONENTS | main | The packaging areas contained within. |
+ | REPREPRO\_COMPRESSION | .bz2 .gz | Available compression formats. |
+ | REPREPRO\_DESCRIPTION | Generic APT Repository | The repository description. |
+ | REPREPRO\_GPG\_KEY| default | The GPG key to use for signing. |
+ | REPREPRO\_URL | packages.generic.com | The repository URL. |
 
 2. The existence, ownership, and permissions are verified on the following configured locations: `DebOverride`, `DscOverride`, and `UDebOverride`.
 3. The ownership and permissions are verified on the following locations: `$REPREPRO_BASE_DIR`.
@@ -64,7 +69,7 @@ The embedded entrypoint script is located at `/etc/entrypoint.d/40sshc` and perf
 
  | Variable | Default Value | Description |
  | ---------| ------------- | ----------- |
- | CONTRIB_AUTHORIZED_KEYS | | The SSH public keys for the `contrib` user. |
+ | CONTRIB\_AUTHORIZED\_KEYS | | The SSH public keys for the `contrib` user. |
 
 ## Standard Configuration
 
