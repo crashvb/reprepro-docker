@@ -1,10 +1,10 @@
-FROM crashvb/nginx:202201100300@sha256:37b8817a48b8208bc30d95e80a226a9863212ca5c1518ccb30c774de7136a08b
+FROM crashvb/nginx:202302180021@sha256:5d51352cd78928288bc98ad1b2829f6a34e83c171b94656623eaa08616ef97fe
 ARG org_opencontainers_image_created=undefined
 ARG org_opencontainers_image_revision=undefined
 LABEL \
 	org.opencontainers.image.authors="Richard Davis <crashvb@gmail.com>" \
-	org.opencontainers.image.base.digest="sha256:37b8817a48b8208bc30d95e80a226a9863212ca5c1518ccb30c774de7136a08b" \
-	org.opencontainers.image.base.name="crashvb/nginx:202201100300" \
+	org.opencontainers.image.base.digest="sha256:5d51352cd78928288bc98ad1b2829f6a34e83c171b94656623eaa08616ef97fe" \
+	org.opencontainers.image.base.name="crashvb/nginx:202302180021" \
 	org.opencontainers.image.created="${org_opencontainers_image_created}" \
 	org.opencontainers.image.description="Image containing reprepro." \
 	org.opencontainers.image.licenses="Apache-2.0" \
@@ -42,6 +42,9 @@ COPY entrypoint.gnupg /etc/entrypoint.d/20gnupg
 COPY entrypoint.reprepro /etc/entrypoint.d/30reprepro
 COPY entrypoint.sshc /etc/entrypoint.d/40sshc
 COPY entrypoint.sshd /etc/entrypoint.d/10sshd
+
+# Configure: healthcheck
+COPY healthcheck.sshd /etc/healthcheck.d/sshd
 
 EXPOSE 22/tcp
 

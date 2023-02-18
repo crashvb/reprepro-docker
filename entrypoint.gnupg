@@ -1,25 +1,25 @@
 #!/bin/bash
 
-set -e
+set -e -o pipefail
 
 # Configure: gnupg
-if [[ ! -e $EP_RUN ]] ; then
-	log "Configuring $(basename $0) for first run ..."
+if [[ ! -e "${EP_RUN}" ]] ; then
+	log "Configuring $(basename "${0}") for first run ..."
 
 	# Read distribution defaults early ...
 	while IFS='=' read -r key value
 	do
-	eval "export $key=\${$key:=$value}"
+	eval "export ${key}=\${${key}:=${value}}"
 	done < /usr/local/share/reprepro/distributions.defaults
 
-	generate_gpgkey reprepro "$REPREPRO_DESCRIPTION" reprepro@$REPREPRO_URL
+	generate_gpgkey reprepro "${REPREPRO_DESCRIPTION}" "reprepro@${REPREPRO_URL}"
 
-	export GNUPGHOME=$REPREPRO_HOME/.gnupg
+	export GNUPGHOME="${REPREPRO_HOME}/.gnupg"
 
 	log "Available GPG keys:"
 	gpg --list-keys
 
 	log "Applying ownership and permissions ..."
-	find $GNUPGHOME \( \! -user reprepro -o \! -group reprepro \) -exec chown reprepro:reprepro {} \;
+	find "${GNUPGHOME}" \( \! -user reprepro -o \! -group reprepro \) -exec chown reprepro:reprepro {} \;
 fi
 

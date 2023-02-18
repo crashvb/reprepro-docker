@@ -1,25 +1,26 @@
 #!/bin/bash
 
-set -e
+set -e -o pipefail
 
 # Configure: sshc
-if [[ ! -e $EP_RUN ]] ; then
-	log "Configuring $(basename $0) for first run ..."
+if [[ ! -e "${EP_RUN}" ]] ; then
+	log "Configuring $(basename "${0}") for first run ..."
 
 	export ssh_dir=/home/contrib/.ssh
-	export authorized_keys=$ssh_dir/authorized_keys
+	export authorized_keys="${ssh_dir}/authorized_keys"
 
 	# authorized_keys
-	if [[ -f $authorized_keys ]] ; then
+	if [[ -f "${authorized_keys}" ]] ; then
 		log "Augmenting: authorized_keys ..."
-		cp --preserve $authorized_keys $authorized_keys.tmp
-		echo "$CONTRIB_AUTHORIZED_KEYS" >> $authorized_keys.tmp
-		sort --unique $authorized_keys.tmp > $authorized_keys
-		rm --force $authorized_keys.tmp
+		tmp="$(mktemp)"
+		cp --preserve "${authorized_keys}" "${tmp}"
+		echo "${CONTRIB_AUTHORIZED_KEYS}" >> "${tmp}"
+		sort --unique "${tmp}" > "${authorized_keys}"
+		rm --force "${tmp}"
 	else
 		log "Generating: authorized_keys ..."
-		install --group=contrib --mode=0400 --owner=contrib /dev/null $authorized_keys
-		echo "$CONTRIB_AUTHORIZED_KEYS" > $authorized_keys
+		install --group=contrib --mode=0400 --owner=contrib /dev/null "${authorized_keys}"
+		echo "${CONTRIB_AUTHORIZED_KEYS}" > "${authorized_keys}"
 	fi
 fi
 

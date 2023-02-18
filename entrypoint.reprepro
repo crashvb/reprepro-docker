@@ -1,30 +1,30 @@
 #!/bin/bash
 
-set -e
+set -e -o pipefail
 
 function getConfig
 {
-        grep "^$1" $REPREPRO_BASE_DIR/conf/distributions | awk '{print $2}'
+        grep "^${1}" "${REPREPRO_BASE_DIR}/conf/distributions" | awk '{print $2}'
 }
 
 # Configure: reprepro
-if [[ ! -e $EP_RUN ]] ; then
-	log "Configuring $(basename $0) for first run ..."
+if [[ ! -e "${EP_RUN}" ]] ; then
+	log "Configuring $(basename "${0}") for first run ..."
 
-	export GNUPGHOME=$REPREPRO_HOME/.gnupg
+	export GNUPGHOME="${REPREPRO_HOME}/.gnupg"
 
-	mkdir --parents $REPREPRO_BASE_DIR/{conf,incoming,indices,logs,project,tmp}
+	mkdir --parents "${REPREPRO_BASE_DIR}/"{conf,incoming,indices,logs,project,tmp}
 	for i in distributions incoming options uploaders
 	do
-		install --group=reprepro --mode=0644 --owner=reprepro /dev/null $REPREPRO_BASE_DIR/conf/$i
-		render_template /usr/local/share/reprepro/$i $REPREPRO_BASE_DIR/conf/$i
+		install --group=reprepro --mode=0644 --owner=reprepro /dev/null "${REPREPRO_BASE_DIR}/conf/${i}"
+		render_template "/usr/local/share/reprepro/${i}" "${REPREPRO_BASE_DIR}/conf/${i}"
 	done
 
 	log "Writing repository.asc ..."
-	gpg --armor --export --output=$REPREPRO_BASE_DIR/repository.asc --yes
+	gpg --armor --export --output="${REPREPRO_BASE_DIR}/repository.asc" --yes
 
 	log "Writing repository.list ..."
-	cat <<-EOF > $REPREPRO_BASE_DIR/repository.list
+	cat <<-EOF > "${REPREPRO_BASE_DIR}/repository.list"
 		deb https://${REPREPRO_URL}/ ${REPREPRO_CODENAME} ${REPREPRO_COMPONENTS}
 		deb-src https://${REPREPRO_URL}/ ${REPREPRO_CODENAME} ${REPREPRO_COMPONENTS}
 	EOF
@@ -32,13 +32,13 @@ if [[ ! -e $EP_RUN ]] ; then
 	log "Creating overrides ..."
 	for i in DebOverride DscOverride UDebOverride
 	do
-		log "   $i"
-		$(cd $REPREPRO_BASE_DIR/conf && touch $(getConfig $i))
+		log "   ${i}"
+		touch "${REPREPRO_BASE_DIR}/conf/$(getConfig "${i}")"
 	done
 
 	log "Applying ownership and permissions ..."
-	find $REPREPRO_BASE_DIR \( \! -user reprepro -o \! -group reprepro \) -exec chown reprepro:reprepro {} \;
-	find $REPREPRO_BASE_DIR/incoming \( \! -user reprepro -o \! -group contrib \) -exec chown reprepro:contrib {} \;
-	chmod 0775 $REPREPRO_BASE_DIR/incoming
+	find "${REPREPRO_BASE_DIR}" \( \! -user reprepro -o \! -group reprepro \) -exec chown reprepro:reprepro {} \;
+	find "${REPREPRO_BASE_DIR}/incoming" \( \! -user reprepro -o \! -group contrib \) -exec chown reprepro:contrib {} \;
+	chmod 0775 "${REPREPRO_BASE_DIR}/incoming"
 fi
 
