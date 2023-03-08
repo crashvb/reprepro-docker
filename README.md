@@ -79,13 +79,18 @@ The embedded entrypoint script is located at `/etc/entrypoint.d/40sshc` and perf
 /
 ├─ etc/
 │  ├─ entrypoint.d/
-│  │  ├─ 10sshd
-│  │  ├─ 20gnupg
-│  │  ├─ 30reprepro
-│  │  └─ 40sshc
-│  └─ nginx/
-│     └─ sites-available/
-│        └─ default
+│  │  ├─ gnupg
+│  │  ├─ reprepro
+│  │  ├─ sshc
+│  │  └─ sshd
+│  ├─ healthcheck.d/
+│  │  └─ sshd
+│  ├─ nginx/
+│  │  └─ sites-available/
+│  │     └─ default
+│  └─ supervisor/
+│     └─ config.d/
+│        └─ sshd.conf
 ├─ home/
 │  ├─ contrib/
 │  │  └─ .ssh/
@@ -94,7 +99,8 @@ The embedded entrypoint script is located at `/etc/entrypoint.d/40sshc` and perf
 │     └─ makefile
 ├─ run/
 │  └─ secrets/
-│     └─ reprepro.gpg
+│     ├─ reprepro.gpg
+│     └─ reprepro_gpg_password
 └─ var/
    └─ www/
       ├─ conf/

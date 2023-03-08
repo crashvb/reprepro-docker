@@ -1,10 +1,10 @@
-FROM crashvb/nginx:202302180021@sha256:5d51352cd78928288bc98ad1b2829f6a34e83c171b94656623eaa08616ef97fe
+FROM crashvb/nginx:202303080204@sha256:12e9f1b44b475dbf5171b2a90d95cb2aab5e159035914163efd9d7d0b140c26f
 ARG org_opencontainers_image_created=undefined
 ARG org_opencontainers_image_revision=undefined
 LABEL \
 	org.opencontainers.image.authors="Richard Davis <crashvb@gmail.com>" \
-	org.opencontainers.image.base.digest="sha256:5d51352cd78928288bc98ad1b2829f6a34e83c171b94656623eaa08616ef97fe" \
-	org.opencontainers.image.base.name="crashvb/nginx:202302180021" \
+	org.opencontainers.image.base.digest="sha256:12e9f1b44b475dbf5171b2a90d95cb2aab5e159035914163efd9d7d0b140c26f" \
+	org.opencontainers.image.base.name="crashvb/nginx:202303080204" \
 	org.opencontainers.image.created="${org_opencontainers_image_created}" \
 	org.opencontainers.image.description="Image containing reprepro." \
 	org.opencontainers.image.licenses="Apache-2.0" \
@@ -38,10 +38,10 @@ RUN sed --in-place 's/^AcceptEnv LANG LC_\*$//g' /etc/ssh/sshd_config && \
 COPY supervisord.sshd.conf /etc/supervisor/conf.d/sshd.conf
 
 # Configure: entrypoint
-COPY entrypoint.gnupg /etc/entrypoint.d/20gnupg
-COPY entrypoint.reprepro /etc/entrypoint.d/30reprepro
-COPY entrypoint.sshc /etc/entrypoint.d/40sshc
-COPY entrypoint.sshd /etc/entrypoint.d/10sshd
+COPY entrypoint.gnupg /etc/entrypoint.d/gnupg
+COPY entrypoint.reprepro /etc/entrypoint.d/reprepro
+COPY entrypoint.sshc /etc/entrypoint.d/sshc
+COPY entrypoint.sshd /etc/entrypoint.d/sshd
 
 # Configure: healthcheck
 COPY healthcheck.sshd /etc/healthcheck.d/sshd

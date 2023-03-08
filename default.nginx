@@ -1,14 +1,30 @@
 server {
 	listen 80 default;
 
+	server_name _;
+
+	return 301 https://$host$request_uri;
+}
+
+server {
+	listen 443 ssl http2;
+
 	root /var/www/;
 	index index.html index.htm;
 
+	ssl_certificate /etc/ssl/certs/nginx.crt;
+	ssl_certificate_key /etc/ssl/private/nginx.key;
+	ssl_protocols TLSv1.3;
+
+#	auth_basic "Repository Secure Access";
+#	auth_basic_user_file /home/reprepro/.htpasswd;
+
 	keepalive_timeout 60;
 
+	add_header X-Frame-Options SAMEORIGIN;
+	add_header X-Content-Type-Options nosniff;
+
 	location / {
-#                auth_basic "Repository Secure Access";
-#                auth_basic_user_file /usr/share/gitweb/.htpasswd;
 		fancyindex on;
 		fancyindex_ignore db conf incoming logs tmp;
 
